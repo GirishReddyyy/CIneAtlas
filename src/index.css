@@ -1,9 +1,12 @@
 @import "tailwindcss";
 
 /* The !important ensures no utility class can tint the background */
-html, body, #root {
+html,
+body,
+#root {
   background-color: #061214 !important;
-  background-image: none !important; /* Removes any hidden gradients */
+  background-image: none !important;
+  /* Removes any hidden gradients */
   margin: 0;
   padding: 0;
 }
@@ -11,4 +14,9 @@ html, body, #root {
 /* Fix for mobile browsers that might add a safe-area tint */
 :root {
   --color-bg: #061214;
+}
+
+/* Add to your index.css */
+.no-scroll {
+  overflow: hidden;
 }
