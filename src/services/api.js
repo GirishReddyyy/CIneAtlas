@@ -17,16 +17,7 @@ export const getPopularShows = async () => {
   return res.data.results;
 };
 
-// NEW: Separated detail fetchers
-// export const getMovieDetails = async (id) => {
-//   const res = await api.get(`/movie/${id}?api_key=${API_KEY}`);
-//   return res.data;
-// };
 
-// export const getTVDetails = async (id) => {
-//   const res = await api.get(`/tv/${id}?api_key=${API_KEY}`);
-//   return res.data;
-// };
 
 export const searchMulti = async (query) => {
   const res = await api.get(`/search/multi?api_key=${API_KEY}&query=${query}`);
@@ -34,12 +25,23 @@ export const searchMulti = async (query) => {
 };
 
 // Add append_to_response to get cast in one call
+// export const getMovieDetails = async (id) => {
+//   const res = await api.get(`/movie/${id}?api_key=${API_KEY}&append_to_response=credits`);
+//   return res.data;
+// };
+
+// export const getTVDetails = async (id) => {
+//   const res = await api.get(`/tv/${id}?api_key=${API_KEY}&append_to_response=credits`);
+//   return res.data;
+// };
+
+// Update these functions in your api.js
 export const getMovieDetails = async (id) => {
-  const res = await api.get(`/movie/${id}?api_key=${API_KEY}&append_to_response=credits`);
+  const res = await api.get(`/movie/${id}?api_key=${API_KEY}&append_to_response=videos,credits`);
   return res.data;
 };
 
 export const getTVDetails = async (id) => {
-  const res = await api.get(`/tv/${id}?api_key=${API_KEY}&append_to_response=credits`);
+  const res = await api.get(`/tv/${id}?api_key=${API_KEY}&append_to_response=videos,credits`);
   return res.data;
 };
