@@ -1,1 +1,33 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@theme {
+  --color-brand-purple: #7c3aed;
+  --color-brand-dark: #0b0b0b;
+  --color-glass: rgba(255, 255, 255, 0.05);
+}
+
+:root {
+  background-color: var(--color-brand-dark);
+  color: white;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Custom Scrollbar for that premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-purple);
+  border-radius: 10px;
+}
+
+/* Glassmorphism utility */
+.glass-effect {
+  background: var(--color-glass);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
