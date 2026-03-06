@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { searchMulti } from "../services/api" // Changed this import
+import { searchMulti } from "../services/api"
 import MovieCard from "../components/MovieCard"
 
 function Search({ results, setResults }) {
@@ -12,7 +12,6 @@ function Search({ results, setResults }) {
 
     setLoading(true)
     try {
-      // Use the multi-search function to get movies AND shows
       const data = await searchMulti(query)
       setResults(data)
     } catch (error) {
@@ -23,35 +22,49 @@ function Search({ results, setResults }) {
   }
 
   return (
-    <div className="p-10 flex flex-col items-center">
-      <h1 className="text-4xl font-bold mb-6 text-purple-500">
-        Search Movies & Shows
-      </h1>
+    <div className="min-h-screen bg-[#061214] p-10 flex flex-col items-center">
+      {/* Search Header */}
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-black mb-4 text-white tracking-tighter uppercase">
+          Search <span className="text-purple-500">Atlas</span>
+        </h1>
+        <p className="text-gray-400">Find movies, TV shows, and more across the cinematic universe.</p>
+      </div>
 
-      <form onSubmit={handleSearch} className="flex gap-4 mb-10">
-        <input
-          type="text"
-          placeholder="Search for movies or TV shows..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="px-4 py-2 border rounded-lg w-80 text-black focus:ring-2 focus:ring-purple-500 outline-none"
-        />
+      {/* Enhanced Search Form */}
+      <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4 mb-16 w-full max-w-2xl">
+        <div className="relative flex-grow">
+          <input
+            type="text"
+            placeholder="Type a movie or show name..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            // bg-white/10 gives that glass look, text-white ensures visibility
+            className="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-gray-500 outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white/15 transition-all shadow-2xl"
+          />
+        </div>
+        
         <button
           type="submit"
           disabled={loading}
-          className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
+          className="bg-purple-600 hover:bg-purple-700 text-white font-bold px-10 py-4 rounded-2xl transition-all active:scale-95 disabled:opacity-50 shadow-lg shadow-purple-500/20"
         >
-          {loading ? "Searching..." : "Search"}
+          {loading ? "SEARCHING..." : "SEARCH"}
         </button>
       </form>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+      {/* Results Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-full max-w-7xl">
         {results && results.length > 0 ? (
           results.map((item) => (
             <MovieCard key={item.id} movie={item} />
           ))
         ) : (
-          !loading && <p className="text-gray-400 col-span-full text-center">No results found. Try a different title!</p>
+          !loading && query && (
+            <div className="col-span-full text-center py-20">
+              <p className="text-gray-500 text-xl italic">"No cosmic signals found for that title. Try another search."</p>
+            </div>
+          )
         )}
       </div>
     </div>
